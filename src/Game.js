@@ -9,12 +9,17 @@ export default class Game extends HTMLElement {
   }
 
   addInitialCards() {
-    this.gameBoard.insertCard(...this.stateManager.generateRandomNumber());
-    this.gameBoard.insertCard(...this.stateManager.generateRandomNumber());
+    this.gameBoard.insertCard(
+      ...this.stateManager.generateRandomIdAndPosition()
+    );
+    this.gameBoard.insertCard(
+      ...this.stateManager.generateRandomIdAndPosition()
+    );
     this.scoreBoard.setAttribute("score", this.stateManager.score);
   }
 
   init() {
+    // Add two initial cards on the board
     this.addInitialCards();
 
     window.addEventListener("keydown", (e) => {
@@ -34,10 +39,15 @@ export default class Game extends HTMLElement {
         case "ArrowRight": {
           if (!this.stateManager.moveRight()) return;
           break;
+        }default: {
+          return;
         }
       }
 
-      this.gameBoard.insertCard(...this.stateManager.generateRandomNumber());
+      this.gameBoard.insertCard(
+        ...this.stateManager.generateRandomIdAndPosition()
+      );
+
       this.gameBoard.render(
         this.stateManager.state,
         this.stateManager.values,
@@ -68,71 +78,75 @@ export default class Game extends HTMLElement {
         }
         header h1{
           display: block;
-          width: 90px;
-          height: 90px;
-          background-color: #edc22e;
-          border-radius: 10px;
-          color: #fff;
+          width: var(--card-size);
+          height: var(--card-size);
+          background-color: var(--background-color-2048);
+          border-radius: var(--radius-medium);
+          color: var(--font-white);
           display: grid;
           place-items: center;
         }
         .describe{
-          margin-bottom: 10px;
-          font-size: 18px;
+          margin-bottom: var(--margin-small);
+          font-size: var(--font-small);
         }
         .container{
           margin: 20px;
         }
 
         .menu-item {
+          display: block;
+          width: 100%;
           padding: 8px 0;
-          display: grid;
-          place-items: center;
           cursor: pointer;
           border-bottom: 1px solid #f1f1f1;
           background-color: #776e65;
-          color: #ffffff;
-          font-size: 18px;
+          color: var(--font-white);
+          font-size: var(--font-small);
           font-weight: bold;
           height: 50px;
           border-radius: 5px;
-          margin-bottom: 10px;
+          margin-bottom: var(--margin-small);
         }
 
         .menu-item:last-child {
             border-bottom: none;
         }
 
-        .menu-item:hover {
+        .menu-item:is(:hover, :focus-visible) {
             background-color: #8f7a66;
         }
 
-        button{
-          width: 90px;
-          height: 30px;
-          color: #fff;
-          background-color: #f59563;
+        .menu{
+          width: var(--card-size);
+          height: calc(var(--card-size) / 3);
+          color: var(--font-white);
+          background-color: var(--background-color-16);
           border:none;
           border-radius: 5px;
-          margin-top:10px;
+          margin-top:var(--margin-small);
+          cursor: pointer;
         }
 
       </style>
       <popup-menu id="menu" title="menu">
-        <div class="menu-item">KEEP GOING</div>
-        <div class="menu-item new-game">NEW GAME</div>
+        <button class="menu-item">KEEP GOING</button>
+        <button class="menu-item new-game">NEW GAME</button>
       </popup-menu>
 
       <popup-menu id="gameOver" title="Game Over">
-        <div class="menu-item new-game">NEW GAME</div>
+        <button class="menu-item new-game">NEW GAME</button>
       </popup-menu>
 
       <div class="container">
       <header>
         <h1 id="game-title">2048</h1>
         <div class="controller">
+          <theme-changer></theme-changer>
+        </div>
+        <div class="controller">
           <score-board aria-labelledby="game-title" role="status"></score-board>
-          <button>Menu</button>
+          <button class="menu">Menu</button>
         </div>
       </header>
       <p class="describe">
@@ -148,7 +162,7 @@ export default class Game extends HTMLElement {
     this.newGame = this.shadowRoot.querySelectorAll(".new-game");
     this.gameOver = this.shadowRoot.querySelector("#gameOver");
 
-    this.shadowRoot.querySelector("button").addEventListener("click", () => {
+    this.shadowRoot.querySelector(".menu").addEventListener("click", () => {
       this.popMenu.show();
     });
 

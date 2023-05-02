@@ -27,17 +27,16 @@ export default class PopupMenu extends HTMLElement {
                 transform: translate(-50%, -50%);
                 background-color: #ffffff;
                 box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-                z-index: 1001;
+                z-index: 100;
                 width: 300px;
-                padding: 16px;
-                border-radius: 10px;
+                padding: var(--padding-small);
+                border-radius: var(--radius-medium);
             }
 
             .popup-title{
-                font-size: 24px;
-                font-weight: bold;
+                font: var(--font-medium) bold;
                 text-align: center;
-                padding-bottom: 16px;
+                padding-bottom: var(--padding-small);
                 color: #333333;
                 text-transform: uppercase;
             }

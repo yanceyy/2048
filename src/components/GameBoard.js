@@ -82,7 +82,6 @@ export default class GameBoard extends HTMLElement {
         <style>
             *{
                 box-sizing: border-box;
-
             }
             .view{
                 --board-width: ${pixelSize}px;
@@ -107,11 +106,11 @@ export default class GameBoard extends HTMLElement {
                 background-color: #aaa;
                 width: var(--board-width);
                 height: var(--board-height);
-                border-radius: 10px;
+                border-radius: var(--radius-medium);
                 display: grid;
                 grid-template-columns: repeat(${this.size}, 1fr);
                 gap:10px;
-                padding:10px;
+                padding:var(--padding-small);
             }
 
             .slot {
@@ -120,7 +119,7 @@ export default class GameBoard extends HTMLElement {
             }
 
             .need-to-remove{
-              position: relative;
+              position: absolute;
               z-index: 0;
             }
         </style>

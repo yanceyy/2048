@@ -1,5 +1,8 @@
-import { getId } from "./state.js";
-import { leftRotate90, rightRotate90, horizontalFlip } from "./utils.js";
+import {
+  matrixLeftRotate90,
+  matrixRightRotate90,
+  matrixHorizontalFlip,
+} from "./utils.js";
 
 export default class StateManager {
   state;
@@ -13,6 +16,14 @@ export default class StateManager {
     this.size = size;
     this.reset();
   }
+
+  // generate a random id for a new card component
+  getId = (() => {
+    let id = 1;
+    return () => {
+      return id++;
+    };
+  })();
 
   reset() {
     this.state = Array.from({ length: this.size }, () =>
@@ -55,10 +66,14 @@ export default class StateManager {
     return true;
   }
 
+  /*
+   * It calculates the next position of the card by pushing all the nodes to the left
+   */
   move() {
     this.mergedNode.clear();
     this.addedNode.clear();
     let hasChanged = false;
+    // move all the nodes next to each other to the left
     for (let row = 0; row < this.size; row++) {
       let left = 0,
         right = 1;
@@ -81,6 +96,7 @@ export default class StateManager {
       }
     }
 
+    // Merge the first connected nodes if they are the same and move the rest of the nodes to the left
     for (let row = 0; row < this.size; row++) {
       for (let col = 0; col < this.size - 1; col++) {
         const id1 = this.state[row][col];
@@ -115,23 +131,26 @@ export default class StateManager {
   }
 
   moveRight() {
-    this.state = horizontalFlip(this.state);
-    const changed = this.moveLeft();
-    this.state = horizontalFlip(this.state);
+    // Rather than implementing the moveRight function, we can just flip the matrix horizontally and call moveLeft
+    this.state = matrixHorizontalFlip(this.state);
+    const changed = this.move();
+    this.state = matrixHorizontalFlip(this.state);
     return changed;
   }
 
   moveUp() {
-    this.state = leftRotate90(this.state);
-    const changed = this.moveLeft();
-    this.state = rightRotate90(this.state);
+    // Rather than implementing the moveUp function, we can just rotate the matrix 90 degrees to the left and call moveLeft
+    this.state = matrixLeftRotate90(this.state);
+    const changed = this.move();
+    this.state = matrixRightRotate90(this.state);
     return changed;
   }
 
   moveDown() {
-    this.state = rightRotate90(this.state);
-    const changed = this.moveLeft();
-    this.state = leftRotate90(this.state);
+    // Rather than implementing the moveDown function, we can just rotate the matrix 90 degrees to the right and call moveLeft
+    this.state = matrixRightRotate90(this.state);
+    const changed = this.move();
+    this.state = matrixLeftRotate90(this.state);
     return changed;
   }
 
@@ -148,9 +167,9 @@ export default class StateManager {
     return emptySlots[randomIndex];
   }
 
-  generateRandomNumber() {
+  generateRandomIdAndPosition() {
     const position = this.randomGetEmptySlotPosition();
-    const id = getId();
+    const id = this.getId();
     this.values.set(id, 2);
     this.state[position.y][position.x] = id;
     return [id, position];

@@ -20,23 +20,20 @@ export default class ScoreBoard extends HTMLElement {
     this.shadowRoot.innerHTML = `
           <style>
               .card{
-                  width: 90px;
-                  height: 90px;
-                  border-radius: 10px;
-                  font-size: 40px;
+                  width: var(--card-size);
+                  height:var(--card-size);
+                  border-radius: var(--radius-medium);
+                  font-size: var(--font-large);
                   background-color: #aaa;
-                  color: #fff;
+                  color: var(--font-white);
                   overflow: hidden;
+                  text-align: center;
               }
 
               .title{
-                font-size: 16px;
-                text-align: center;
-                margin-top: 12px;
-              }
+                font-size: var(--font-small);;
+                margin-top: var(--margin-small);
 
-              .score{
-                text-align: center;
               }
           </style>
           <div class="card">

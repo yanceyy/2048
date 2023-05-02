@@ -1,4 +1,8 @@
-export function leftRotate90(matrix) {
+/*
+  These helper functions help with the rotation and flipping of matrix.
+*/
+
+export function matrixLeftRotate90(matrix) {
   const n = matrix.length;
   const m = matrix[0].length;
   const rotatedMatrix = new Array(m)
@@ -14,7 +18,7 @@ export function leftRotate90(matrix) {
   return rotatedMatrix;
 }
 
-export function rightRotate90(matrix) {
+export function matrixRightRotate90(matrix) {
   const n = matrix.length;
   const m = matrix[0].length;
   const rotatedMatrix = new Array(m)
@@ -30,7 +34,7 @@ export function rightRotate90(matrix) {
   return rotatedMatrix;
 }
 
-export function horizontalFlip(matrix) {
+export function matrixHorizontalFlip(matrix) {
   const flippedMatrix = matrix.map((row) => row.slice().reverse());
   return flippedMatrix;
 }
