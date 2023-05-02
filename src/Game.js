@@ -87,7 +87,7 @@ export default class Game extends HTMLElement {
           place-items: center;
         }
         .describe{
-          margin-bottom: var(--margin-small);
+          margin: var(--margin-small);
           font-size: var(--font-small);
         }
         .container{
@@ -153,6 +153,9 @@ export default class Game extends HTMLElement {
         Join the numbers and get to the <strong>2048</strong> tile!
       </p>
       <game-board size="${this.size}" aria-labelledby="game-title" role="grid"></game-board>
+      <p class="describe">
+      Play the game with arrow keys (↑, ↓, ←, →)
+    </p>
     </div>
     `;
 
