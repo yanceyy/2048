@@ -66,11 +66,12 @@ export default class Game extends HTMLElement {
   connectedCallback() {
     this.shadowRoot.innerHTML = `
       <style>
-        *{
+        * {
           box-sizing: border-box;
           margin: 0;
           padding: 0;
         }
+
         header{
           display: flex;
           margin-bottom: 20px;
@@ -92,29 +93,6 @@ export default class Game extends HTMLElement {
         }
         .container{
           margin: 20px;
-        }
-
-        .menu-item {
-          display: block;
-          width: 100%;
-          padding: 8px 0;
-          cursor: pointer;
-          border-bottom: 1px solid #f1f1f1;
-          background-color: #776e65;
-          color: var(--font-white);
-          font-size: var(--font-small);
-          font-weight: bold;
-          height: 50px;
-          border-radius: 5px;
-          margin-bottom: var(--margin-small);
-        }
-
-        .menu-item:last-child {
-            border-bottom: none;
-        }
-
-        .menu-item:is(:hover, :focus-visible) {
-            background-color: #8f7a66;
         }
 
         .menu{

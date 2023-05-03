@@ -40,6 +40,30 @@ export default class PopupMenu extends HTMLElement {
                 color: #333333;
                 text-transform: uppercase;
             }
+
+            ::slotted(.menu-item) {
+              display: block;
+              width: 100%;
+              padding: 8px 0 !important;
+              cursor: pointer;
+              border-bottom: 1px solid #f1f1f1;
+              background-color: #776e65;
+              color: var(--font-white);
+              font-size: var(--font-small);
+              font-weight: bold;
+              height: 50px;
+              border-radius: 5px;
+              margin-bottom: var(--margin-small) !important;
+            }
+
+            ::slotted(.menu-item:last-child) {
+                border-bottom: none;
+            }
+
+            ::slotted(.menu-item:is(:hover, :focus-visible)) {
+                background-color: #8f7a66;
+            }
+
         </style>
 
         <div class="popup-menu-overlay">

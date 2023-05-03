@@ -70,11 +70,11 @@ export default class ThemeChanger extends HTMLElement {
         <legend>Theme:</legend>
         <div>
           <input type="radio" id="classical" name="theme" value="classical" checked>
-          <label for="classical">classical</label>
+          <label for="classical">Classical</label>
         </div>
         <div>
           <input type="radio" id="jungle" name="theme" value="jungle">
-          <label for="jungle">jungle</label>
+          <label for="jungle">Jungle</label>
         </div>
         <div>
           <input type="radio" id="ocean" name="theme" value="ocean">
@@ -84,8 +84,7 @@ export default class ThemeChanger extends HTMLElement {
     `;
     this.themeElement = this.shadowRoot.querySelector("fieldset");
     this.themeElement.addEventListener("change", (e) => {
-      document.documentElement.className = "";
-      document.documentElement.classList.add(e.target.value);
+      document.documentElement.setAttribute("theme", e.target.value);
     });
   }
 }

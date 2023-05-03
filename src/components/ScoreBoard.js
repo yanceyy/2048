@@ -33,8 +33,8 @@ export default class ScoreBoard extends HTMLElement {
               .title{
                 font-size: var(--font-small);;
                 margin-top: var(--margin-small);
-
               }
+
           </style>
           <div class="card">
             <div class="title">SCORE</div>

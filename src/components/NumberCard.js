@@ -32,6 +32,7 @@ export default class NumberCard extends HTMLElement {
         "color",
         `var(--font-color-${this.#attributes.value})`
       );
+
       this.card.style.setProperty("left", `${this.#attributes.position.x}px`);
       this.card.style.setProperty("top", `${this.#attributes.position.y}px`);
       if (this.#attributes.bigger) {
@@ -56,14 +57,14 @@ export default class NumberCard extends HTMLElement {
                 place-items:center;
                 border-radius: 4px;
                 font-size: var(--font-large);
-                animation: showup 0.3s ease-in-out;
-                transition: top 0.3s ease-in-out, left 0.3s ease-in-out;
+                animation: showup 0.2s ease-in-out;
+                transition: top 0.2s ease-in-out, left 0.2s ease-in-out;
                 font-family: sans-serif;
                 font-weight: 700;
             }
 
             .animate{
-              animation: bigger 0.2s 0.2s ease-in-out, showup 0.3s ease-in-out;
+              animation: bigger 0.1s 0.1s ease-in-out, showup 0.2s ease-in-out;
             }
 
             @Keyframes showup{

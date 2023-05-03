@@ -1,6 +1,6 @@
-*, *::before, *::after {
-  margin: 0px;
+* {
   box-sizing: border-box;
+  margin: 0;
   padding: 0;
 }
 
@@ -15,7 +15,7 @@
   --font-white:white;
 }
 
-:root.classical{
+:root[theme="classical"]{
   --background-color-2: #eee4da;
   --background-color-4: #ede0c8;
   --background-color-8: #f2b179;
@@ -41,7 +41,7 @@
   --font-color-2048: #f9f6f2;
 }
 
-:root.ocean{
+:root[theme="ocean"]{
   --background-color-2: #F8B195;
   --background-color-4: #F67280;
   --background-color-8: #C06C84;
@@ -67,7 +67,7 @@
   --font-color-2048: #F9F6F2;
 }
 
-:root.jungle {
+:root[theme="jungle"] {
   --background-color-2: #9BC53D;
   --background-color-4: #88C425;
   --background-color-8: #74B72E;
