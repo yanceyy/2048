@@ -46,7 +46,7 @@ export default class PopupMenu extends HTMLElement {
               width: 100%;
               padding: 8px 0 !important;
               cursor: pointer;
-              border-bottom: 1px solid #f1f1f1;
+              border: none;
               background-color: #776e65;
               color: var(--font-white);
               font-size: var(--font-small);
@@ -54,10 +54,6 @@ export default class PopupMenu extends HTMLElement {
               height: 50px;
               border-radius: 5px;
               margin-bottom: var(--margin-small) !important;
-            }
-
-            ::slotted(.menu-item:last-child) {
-                border-bottom: none;
             }
 
             ::slotted(.menu-item:is(:hover, :focus-visible)) {

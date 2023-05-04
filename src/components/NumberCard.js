@@ -55,7 +55,7 @@ export default class NumberCard extends HTMLElement {
                 z-index: 10;
                 display: grid;
                 place-items:center;
-                border-radius: 4px;
+                border-radius: 3px;
                 font-size: var(--font-large);
                 animation: showup 0.2s ease-in-out;
                 transition: top 0.2s ease-in-out, left 0.2s ease-in-out;

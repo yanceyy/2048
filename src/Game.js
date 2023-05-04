@@ -5,7 +5,7 @@ export default class Game extends HTMLElement {
     super();
     this.attachShadow({ mode: "open" });
     this.size = 4;
-    this.stateManager = new StateManager(4);
+    this.stateManager = new StateManager(this.size);
   }
 
   addInitialCards() {
