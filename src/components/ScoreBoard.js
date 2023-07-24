@@ -1,23 +1,23 @@
 export default class ScoreBoard extends HTMLElement {
-  #score = {};
+    #score = {};
 
-  constructor() {
-    super();
-    this.attachShadow({ mode: "open" });
-  }
-
-  static get observedAttributes() {
-    return ["score"];
-  }
-
-  attributeChangedCallback(name, _, newValue) {
-    if (this.scoreElement) {
-      this.scoreElement.textContent = Number.parseInt(newValue);
+    constructor() {
+        super();
+        this.attachShadow({ mode: "open" });
     }
-  }
 
-  connectedCallback() {
-    this.shadowRoot.innerHTML = `
+    static get observedAttributes() {
+        return ["score"];
+    }
+
+    attributeChangedCallback(name, _, newValue) {
+        if (this.scoreElement) {
+            this.scoreElement.textContent = Number.parseInt(newValue);
+        }
+    }
+
+    connectedCallback() {
+        this.shadowRoot.innerHTML = `
           <style>
               .card{
                   width: var(--card-size);
@@ -41,6 +41,6 @@ export default class ScoreBoard extends HTMLElement {
             <div class="score">0</div>
           </div>
       `;
-    this.scoreElement = this.shadowRoot.querySelector(".score");
-  }
+        this.scoreElement = this.shadowRoot.querySelector(".score");
+    }
 }

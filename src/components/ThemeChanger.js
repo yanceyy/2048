@@ -1,11 +1,11 @@
 export default class ThemeChanger extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: "open" });
-  }
+    constructor() {
+        super();
+        this.attachShadow({ mode: "open" });
+    }
 
-  connectedCallback() {
-    this.shadowRoot.innerHTML = `
+    connectedCallback() {
+        this.shadowRoot.innerHTML = `
         <style>
 
         fieldset > div {
@@ -82,9 +82,9 @@ export default class ThemeChanger extends HTMLElement {
         </div>
     </fieldset>
     `;
-    this.themeElement = this.shadowRoot.querySelector("fieldset");
-    this.themeElement.addEventListener("change", (e) => {
-      document.documentElement.setAttribute("theme", e.target.value);
-    });
-  }
+        this.themeElement = this.shadowRoot.querySelector("fieldset");
+        this.themeElement.addEventListener("change", (e) => {
+            document.documentElement.setAttribute("theme", e.target.value);
+        });
+    }
 }

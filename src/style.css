@@ -1,102 +1,102 @@
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-:root{
-  --card-size:90px;
-  --padding-small:10px;
-  --margin-small:10px;
-  --radius-medium:10px;
-  --font-small:18px;
-  --font-medium:26px;
-  --font-large:40px;
-  --font-white:white;
+:root {
+    --card-size: 90px;
+    --padding-small: 10px;
+    --margin-small: 10px;
+    --radius-medium: 10px;
+    --font-small: 18px;
+    --font-medium: 26px;
+    --font-large: 40px;
+    --font-white: white;
 }
 
-:root[theme="classical"]{
-  --background-color-2: #eee4da;
-  --background-color-4: #ede0c8;
-  --background-color-8: #f2b179;
-  --background-color-16: #f59563;
-  --background-color-32: #f67c5f;
-  --background-color-64: #f65e3b;
-  --background-color-128: #edcf72;
-  --background-color-256: #edcc61;
-  --background-color-512: #edc850;
-  --background-color-1024: #edc53f;
-  --background-color-2048: #edc22e;
+:root[theme="classical"] {
+    --background-color-2: #eee4da;
+    --background-color-4: #ede0c8;
+    --background-color-8: #f2b179;
+    --background-color-16: #f59563;
+    --background-color-32: #f67c5f;
+    --background-color-64: #f65e3b;
+    --background-color-128: #edcf72;
+    --background-color-256: #edcc61;
+    --background-color-512: #edc850;
+    --background-color-1024: #edc53f;
+    --background-color-2048: #edc22e;
 
-  --font-color-2: #776e65;
-  --font-color-4: #776e65;
-  --font-color-8: #f9f6f2;
-  --font-color-16: #f9f6f2;
-  --font-color-32: #f9f6f2;
-  --font-color-64: #f9f6f2;
-  --font-color-128: #f9f6f2;
-  --font-color-256: #f9f6f2;
-  --font-color-512: #f9f6f2;
-  --font-color-1024: #f9f6f2;
-  --font-color-2048: #f9f6f2;
+    --font-color-2: #776e65;
+    --font-color-4: #776e65;
+    --font-color-8: #f9f6f2;
+    --font-color-16: #f9f6f2;
+    --font-color-32: #f9f6f2;
+    --font-color-64: #f9f6f2;
+    --font-color-128: #f9f6f2;
+    --font-color-256: #f9f6f2;
+    --font-color-512: #f9f6f2;
+    --font-color-1024: #f9f6f2;
+    --font-color-2048: #f9f6f2;
 }
 
-:root[theme="ocean"]{
-  --background-color-2: #F8B195;
-  --background-color-4: #F67280;
-  --background-color-8: #C06C84;
-  --background-color-16: #6C5B7B;
-  --background-color-32: #355C7D;
-  --background-color-64: #2A363B;
-  --background-color-128: #8C4843;
-  --background-color-256: #F9D6C1;
-  --background-color-512: #E5FCC2;
-  --background-color-1024: #9DE0AD;
-  --background-color-2048: #45ADA8;
+:root[theme="ocean"] {
+    --background-color-2: #f8b195;
+    --background-color-4: #f67280;
+    --background-color-8: #c06c84;
+    --background-color-16: #6c5b7b;
+    --background-color-32: #355c7d;
+    --background-color-64: #2a363b;
+    --background-color-128: #8c4843;
+    --background-color-256: #f9d6c1;
+    --background-color-512: #e5fcc2;
+    --background-color-1024: #9de0ad;
+    --background-color-2048: #45ada8;
 
-  --font-color-2: #F9F6F2;
-  --font-color-4: #F9F6F2;
-  --font-color-8: #F9F6F2;
-  --font-color-16: #F9F6F2;
-  --font-color-32: #F9F6F2;
-  --font-color-64: #F9F6F2;
-  --font-color-128: #F9F6F2;
-  --font-color-256: #8B4513;
-  --font-color-512: #8B4513;
-  --font-color-1024: #8B4513;
-  --font-color-2048: #F9F6F2;
+    --font-color-2: #f9f6f2;
+    --font-color-4: #f9f6f2;
+    --font-color-8: #f9f6f2;
+    --font-color-16: #f9f6f2;
+    --font-color-32: #f9f6f2;
+    --font-color-64: #f9f6f2;
+    --font-color-128: #f9f6f2;
+    --font-color-256: #8b4513;
+    --font-color-512: #8b4513;
+    --font-color-1024: #8b4513;
+    --font-color-2048: #f9f6f2;
 }
 
 :root[theme="jungle"] {
-  --background-color-2: #9BC53D;
-  --background-color-4: #88C425;
-  --background-color-8: #74B72E;
-  --background-color-16: #60A42D;
-  --background-color-32: #4B922C;
-  --background-color-64: #37782F;
-  --background-color-128: #2D6A4F;
-  --background-color-256: #266155;
-  --background-color-512: #1F525D;
-  --background-color-1024: #1A4147;
-  --background-color-2048: #153637;
+    --background-color-2: #9bc53d;
+    --background-color-4: #88c425;
+    --background-color-8: #74b72e;
+    --background-color-16: #60a42d;
+    --background-color-32: #4b922c;
+    --background-color-64: #37782f;
+    --background-color-128: #2d6a4f;
+    --background-color-256: #266155;
+    --background-color-512: #1f525d;
+    --background-color-1024: #1a4147;
+    --background-color-2048: #153637;
 
-  --font-color-2: #F9F6F2;
-  --font-color-4: #F9F6F2;
-  --font-color-8: #F9F6F2;
-  --font-color-16: #F9F6F2;
-  --font-color-32: #F9F6F2;
-  --font-color-64: #F9F6F2;
-  --font-color-128: #F9F6F2;
-  --font-color-256: #F9F6F2;
-  --font-color-512: #F9F6F2;
-  --font-color-1024: #F9F6F2;
-  --font-color-2048: #F9F6F2;
+    --font-color-2: #f9f6f2;
+    --font-color-4: #f9f6f2;
+    --font-color-8: #f9f6f2;
+    --font-color-16: #f9f6f2;
+    --font-color-32: #f9f6f2;
+    --font-color-64: #f9f6f2;
+    --font-color-128: #f9f6f2;
+    --font-color-256: #f9f6f2;
+    --font-color-512: #f9f6f2;
+    --font-color-1024: #f9f6f2;
+    --font-color-2048: #f9f6f2;
 }
 
 body {
-  background-color: #ded8c0;
-  display: grid;
-  place-items: center;
-  height: 100vh;
-  height: 100dvh;
+    background-color: #ded8c0;
+    display: grid;
+    place-items: center;
+    height: 100vh;
+    height: 100dvh;
 }

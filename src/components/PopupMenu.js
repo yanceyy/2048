@@ -1,9 +1,9 @@
 export default class PopupMenu extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: "open" });
+    constructor() {
+        super();
+        this.attachShadow({ mode: "open" });
 
-    this.shadowRoot.innerHTML = `
+        this.shadowRoot.innerHTML = `
             <style>
             :host {
                 display: block;
@@ -72,33 +72,34 @@ export default class PopupMenu extends HTMLElement {
         </div>
     `;
 
-    this.overlay = this.shadowRoot.querySelector(".popup-menu-overlay");
-    this.overlay.addEventListener("click", () => this.hide());
-  }
-
-  static get observedAttributes() {
-    return ["title"];
-  }
-
-  attributeChangedCallback(name, _, newValue) {
-    if (name === "title") {
-      this.shadowRoot.querySelector(".popup-title").textContent = newValue;
+        this.overlay = this.shadowRoot.querySelector(".popup-menu-overlay");
+        this.overlay.addEventListener("click", () => this.hide());
     }
-  }
 
-  connectedCallback() {
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") {
-        this.hide();
-      }
-    });
-  }
+    static get observedAttributes() {
+        return ["title"];
+    }
 
-  show() {
-    this.overlay.style.display = "block";
-  }
+    attributeChangedCallback(name, _, newValue) {
+        if (name === "title") {
+            this.shadowRoot.querySelector(".popup-title").textContent =
+                newValue;
+        }
+    }
 
-  hide() {
-    this.overlay.style.display = "none";
-  }
+    connectedCallback() {
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape") {
+                this.hide();
+            }
+        });
+    }
+
+    show() {
+        this.overlay.style.display = "block";
+    }
+
+    hide() {
+        this.overlay.style.display = "none";
+    }
 }

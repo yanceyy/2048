@@ -1,71 +1,73 @@
 import StateManager from "./StateManager.js";
 
 export default class Game extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: "open" });
-    this.boardSize = 4;
-    this.stateManager = new StateManager(this.boardSize);
-  }
-
-  addInitialCards() {
-    const [id1, position1] = this.stateManager.generateRandomIdAndPosition();
-    const [id2, position2] = this.stateManager.generateRandomIdAndPosition();
-    this.gameBoard.insertCard(id1, position1);
-    this.gameBoard.insertCard(id2, position2);
-    this.scoreBoard.setAttribute("score", this.stateManager.score);
-  }
-
-  handleKeyDown = (e) => {
-    switch (e.key) {
-      case "ArrowUp": {
-        if (!this.stateManager.moveUp()) return;
-        break;
-      }
-      case "ArrowDown": {
-        if (!this.stateManager.moveDown()) return;
-        break;
-      }
-      case "ArrowLeft": {
-        if (!this.stateManager.moveLeft()) return;
-        break;
-      }
-      case "ArrowRight": {
-        if (!this.stateManager.moveRight()) return;
-        break;
-      }
-      default: {
-        return;
-      }
+    constructor() {
+        super();
+        this.attachShadow({ mode: "open" });
+        this.boardSize = 4;
+        this.stateManager = new StateManager(this.boardSize);
     }
 
-    const [id, position] = this.stateManager.generateRandomIdAndPosition();
-    this.gameBoard.insertCard(id, position);
-    this.gameBoard.render(
-      this.stateManager.state,
-      this.stateManager.values,
-      this.stateManager.mergedNode,
-      this.stateManager.addedNode
-    );
-    this.scoreBoard.setAttribute("score", this.stateManager.score);
-
-    if (this.stateManager.isGameOver()) {
-      this.gameOver.show();
+    addInitialCards() {
+        const [id1, position1] =
+            this.stateManager.generateRandomIdAndPosition();
+        const [id2, position2] =
+            this.stateManager.generateRandomIdAndPosition();
+        this.gameBoard.insertCard(id1, position1);
+        this.gameBoard.insertCard(id2, position2);
+        this.scoreBoard.setAttribute("score", this.stateManager.score);
     }
-  };
 
-  handleMenuClick = () => {
-    this.popMenu.show();
-  };
+    handleKeyDown = (e) => {
+        switch (e.key) {
+            case "ArrowUp": {
+                if (!this.stateManager.moveUp()) return;
+                break;
+            }
+            case "ArrowDown": {
+                if (!this.stateManager.moveDown()) return;
+                break;
+            }
+            case "ArrowLeft": {
+                if (!this.stateManager.moveLeft()) return;
+                break;
+            }
+            case "ArrowRight": {
+                if (!this.stateManager.moveRight()) return;
+                break;
+            }
+            default: {
+                return;
+            }
+        }
 
-  handleNewGameClick = () => {
-    this.gameBoard.reset();
-    this.stateManager.reset();
-    this.addInitialCards();
-  };
+        const [id, position] = this.stateManager.generateRandomIdAndPosition();
+        this.gameBoard.insertCard(id, position);
+        this.gameBoard.render(
+            this.stateManager.state,
+            this.stateManager.values,
+            this.stateManager.mergedNode,
+            this.stateManager.addedNode
+        );
+        this.scoreBoard.setAttribute("score", this.stateManager.score);
 
-  connectedCallback() {
-    this.shadowRoot.innerHTML = `
+        if (this.stateManager.isGameOver()) {
+            this.gameOver.show();
+        }
+    };
+
+    handleMenuClick = () => {
+        this.popMenu.show();
+    };
+
+    handleNewGameClick = () => {
+        this.gameBoard.reset();
+        this.stateManager.reset();
+        this.addInitialCards();
+    };
+
+    connectedCallback() {
+        this.shadowRoot.innerHTML = `
       <style>
         * {
           box-sizing: border-box;
@@ -138,22 +140,22 @@ export default class Game extends HTMLElement {
     </div>
     `;
 
-    this.scoreBoard = this.shadowRoot.querySelector("score-board");
-    this.gameBoard = this.shadowRoot.querySelector("game-board");
-    this.popMenu = this.shadowRoot.querySelector("#menu");
-    this.newGame = this.shadowRoot.querySelectorAll(".new-game");
-    this.gameOver = this.shadowRoot.querySelector("#gameOver");
+        this.scoreBoard = this.shadowRoot.querySelector("score-board");
+        this.gameBoard = this.shadowRoot.querySelector("game-board");
+        this.popMenu = this.shadowRoot.querySelector("#menu");
+        this.newGame = this.shadowRoot.querySelectorAll(".new-game");
+        this.gameOver = this.shadowRoot.querySelector("#gameOver");
 
-    this.shadowRoot
-      .querySelector(".menu")
-      .addEventListener("click", this.handleMenuClick);
+        this.shadowRoot
+            .querySelector(".menu")
+            .addEventListener("click", this.handleMenuClick);
 
-    this.newGame.forEach((button) =>
-      button.addEventListener("click", this.handleNewGameClick)
-    );
+        this.newGame.forEach((button) =>
+            button.addEventListener("click", this.handleNewGameClick)
+        );
 
-    window.addEventListener("keydown", this.handleKeyDown);
+        window.addEventListener("keydown", this.handleKeyDown);
 
-    this.addInitialCards();
-  }
+        this.addInitialCards();
+    }
 }

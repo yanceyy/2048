@@ -1,58 +1,64 @@
 export default class NumberCard extends HTMLElement {
-  #attributes = {};
+    #attributes = {};
 
-  constructor() {
-    super();
-    this.attachShadow({ mode: "open" });
-  }
-
-  static get observedAttributes() {
-    return ["number-value", "position", "bigger"];
-  }
-
-  attributeChangedCallback(name, _, newValue) {
-    switch (name) {
-      case "number-value":
-        this.#attributes.value = newValue;
-        break;
-      case "position":
-        this.#attributes.position = JSON.parse(newValue);
-        break;
-      case "bigger":
-        this.#attributes.bigger = newValue;
-        break;
-      default:
-        break;
+    constructor() {
+        super();
+        this.attachShadow({ mode: "open" });
     }
-    this.render();
-  }
 
-  render() {
-    if (this.card) {
-      this.card.textContent = this.#attributes.value;
-      this.card.style.setProperty(
-        "background-color",
-        `var(--background-color-${this.#attributes.value})`
-      );
-      this.card.style.setProperty(
-        "color",
-        `var(--font-color-${this.#attributes.value})`
-      );
-
-      this.card.style.setProperty("left", `${this.#attributes.position.x}px`);
-      this.card.style.setProperty("top", `${this.#attributes.position.y}px`);
-      if (this.#attributes.bigger) {
-        this.card.classList.remove("animate");
-        this.card.offsetWidth; // trigger reflow, to restart animation
-        this.card.classList.add("animate");
-      } else {
-        this.card.classList.remove("animate");
-      }
+    static get observedAttributes() {
+        return ["number-value", "position", "bigger"];
     }
-  }
 
-  connectedCallback() {
-    this.shadowRoot.innerHTML = `
+    attributeChangedCallback(name, _, newValue) {
+        switch (name) {
+            case "number-value":
+                this.#attributes.value = newValue;
+                break;
+            case "position":
+                this.#attributes.position = JSON.parse(newValue);
+                break;
+            case "bigger":
+                this.#attributes.bigger = newValue;
+                break;
+            default:
+                break;
+        }
+        this.render();
+    }
+
+    render() {
+        if (this.card) {
+            this.card.textContent = this.#attributes.value;
+            this.card.style.setProperty(
+                "background-color",
+                `var(--background-color-${this.#attributes.value})`
+            );
+            this.card.style.setProperty(
+                "color",
+                `var(--font-color-${this.#attributes.value})`
+            );
+
+            this.card.style.setProperty(
+                "left",
+                `${this.#attributes.position.x}px`
+            );
+            this.card.style.setProperty(
+                "top",
+                `${this.#attributes.position.y}px`
+            );
+            if (this.#attributes.bigger) {
+                this.card.classList.remove("animate");
+                this.card.offsetWidth; // trigger reflow, to restart animation
+                this.card.classList.add("animate");
+            } else {
+                this.card.classList.remove("animate");
+            }
+        }
+    }
+
+    connectedCallback() {
+        this.shadowRoot.innerHTML = `
         <style>
             .card{
                 position: absolute;
@@ -93,7 +99,7 @@ export default class NumberCard extends HTMLElement {
         </style>
         <div class="card"></div>
     `;
-    this.card = this.shadowRoot.querySelector(".card");
-    this.render();
-  }
+        this.card = this.shadowRoot.querySelector(".card");
+        this.render();
+    }
 }

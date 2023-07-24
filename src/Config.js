@@ -1,3 +1,3 @@
 export const Config = {
-  size: 4,
+    size: 4,
 };
