@@ -41,7 +41,7 @@ export default class GameBoard extends HTMLElement {
     });
 
     state.forEach((row, rowIndex) => {
-      row.forEach((col, colIndex) => {
+      row.forEach((_, colIndex) => {
         const id = state[rowIndex][colIndex];
         if (id === 0) return;
         if (this.cards.has(id)) {

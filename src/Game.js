@@ -4,64 +4,65 @@ export default class Game extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
-    this.size = 4;
-    this.stateManager = new StateManager(this.size);
+    this.boardSize = 4;
+    this.stateManager = new StateManager(this.boardSize);
   }
 
   addInitialCards() {
-    this.gameBoard.insertCard(
-      ...this.stateManager.generateRandomIdAndPosition()
-    );
-    this.gameBoard.insertCard(
-      ...this.stateManager.generateRandomIdAndPosition()
-    );
+    const [id1, position1] = this.stateManager.generateRandomIdAndPosition();
+    const [id2, position2] = this.stateManager.generateRandomIdAndPosition();
+    this.gameBoard.insertCard(id1, position1);
+    this.gameBoard.insertCard(id2, position2);
     this.scoreBoard.setAttribute("score", this.stateManager.score);
   }
 
-  init() {
-    // Add two initial cards on the board
+  handleKeyDown = (e) => {
+    switch (e.key) {
+      case "ArrowUp": {
+        if (!this.stateManager.moveUp()) return;
+        break;
+      }
+      case "ArrowDown": {
+        if (!this.stateManager.moveDown()) return;
+        break;
+      }
+      case "ArrowLeft": {
+        if (!this.stateManager.moveLeft()) return;
+        break;
+      }
+      case "ArrowRight": {
+        if (!this.stateManager.moveRight()) return;
+        break;
+      }
+      default: {
+        return;
+      }
+    }
+
+    const [id, position] = this.stateManager.generateRandomIdAndPosition();
+    this.gameBoard.insertCard(id, position);
+    this.gameBoard.render(
+      this.stateManager.state,
+      this.stateManager.values,
+      this.stateManager.mergedNode,
+      this.stateManager.addedNode
+    );
+    this.scoreBoard.setAttribute("score", this.stateManager.score);
+
+    if (this.stateManager.isGameOver()) {
+      this.gameOver.show();
+    }
+  };
+
+  handleMenuClick = () => {
+    this.popMenu.show();
+  };
+
+  handleNewGameClick = () => {
+    this.gameBoard.reset();
+    this.stateManager.reset();
     this.addInitialCards();
-
-    window.addEventListener("keydown", (e) => {
-      switch (e.key) {
-        case "ArrowUp": {
-          if (!this.stateManager.moveUp()) return;
-          break;
-        }
-        case "ArrowDown": {
-          if (!this.stateManager.moveDown()) return;
-          break;
-        }
-        case "ArrowLeft": {
-          if (!this.stateManager.moveLeft()) return;
-          break;
-        }
-        case "ArrowRight": {
-          if (!this.stateManager.moveRight()) return;
-          break;
-        }default: {
-          return;
-        }
-      }
-
-      this.gameBoard.insertCard(
-        ...this.stateManager.generateRandomIdAndPosition()
-      );
-
-      this.gameBoard.render(
-        this.stateManager.state,
-        this.stateManager.values,
-        this.stateManager.mergedNode,
-        this.stateManager.addedNode
-      );
-
-      this.scoreBoard.setAttribute("score", this.stateManager.score);
-
-      if (this.stateManager.isGameOver()) {
-        this.gameOver.show();
-      }
-    });
-  }
+  };
 
   connectedCallback() {
     this.shadowRoot.innerHTML = `
@@ -108,12 +109,12 @@ export default class Game extends HTMLElement {
 
       </style>
       <popup-menu id="menu" title="menu">
-        <button class="menu-item">KEEP GOING</button>
-        <button class="menu-item new-game">NEW GAME</button>
+        <button class="menu-button">KEEP GOING</button>
+        <button class="menu-button new-game">NEW GAME</button>
       </popup-menu>
 
       <popup-menu id="gameOver" title="Game Over">
-        <button class="menu-item new-game">NEW GAME</button>
+        <button class="menu-button new-game">NEW GAME</button>
       </popup-menu>
 
       <div class="container">
@@ -130,7 +131,7 @@ export default class Game extends HTMLElement {
       <p class="describe">
         Join the numbers and get to the <strong>2048</strong> tile!
       </p>
-      <game-board size="${this.size}" aria-labelledby="game-title" role="grid"></game-board>
+      <game-board size="${this.boardSize}" aria-labelledby="game-title" role="grid"></game-board>
       <p class="describe">
       Play the game with arrow keys (↑, ↓, ←, →)
     </p>
@@ -143,18 +144,16 @@ export default class Game extends HTMLElement {
     this.newGame = this.shadowRoot.querySelectorAll(".new-game");
     this.gameOver = this.shadowRoot.querySelector("#gameOver");
 
-    this.shadowRoot.querySelector(".menu").addEventListener("click", () => {
-      this.popMenu.show();
-    });
+    this.shadowRoot
+      .querySelector(".menu")
+      .addEventListener("click", this.handleMenuClick);
 
     this.newGame.forEach((button) =>
-      button.addEventListener("click", () => {
-        this.gameBoard.reset();
-        this.stateManager.reset();
-        this.addInitialCards();
-      })
+      button.addEventListener("click", this.handleNewGameClick)
     );
 
-    this.init();
+    window.addEventListener("keydown", this.handleKeyDown);
+
+    this.addInitialCards();
   }
 }

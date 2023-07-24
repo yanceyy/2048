@@ -11,12 +11,18 @@ export default class NumberCard extends HTMLElement {
   }
 
   attributeChangedCallback(name, _, newValue) {
-    if (name === "number-value") {
-      this.#attributes.value = newValue;
-    } else if (name === "position") {
-      this.#attributes.position = JSON.parse(newValue);
-    } else if (name === "bigger") {
-      this.#attributes.bigger = newValue;
+    switch (name) {
+      case "number-value":
+        this.#attributes.value = newValue;
+        break;
+      case "position":
+        this.#attributes.position = JSON.parse(newValue);
+        break;
+      case "bigger":
+        this.#attributes.bigger = newValue;
+        break;
+      default:
+        break;
     }
     this.render();
   }

@@ -41,7 +41,7 @@ export default class PopupMenu extends HTMLElement {
                 text-transform: uppercase;
             }
 
-            ::slotted(.menu-item) {
+            ::slotted(.menu-button) {
               display: block;
               width: 100%;
               padding: 8px 0 !important;
@@ -56,7 +56,7 @@ export default class PopupMenu extends HTMLElement {
               margin-bottom: var(--margin-small) !important;
             }
 
-            ::slotted(.menu-item:is(:hover, :focus-visible)) {
+            ::slotted(.menu-button:is(:hover, :focus-visible)) {
                 background-color: #8f7a66;
             }
 
