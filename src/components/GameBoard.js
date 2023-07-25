@@ -2,6 +2,7 @@ export default class GameBoard extends HTMLElement {
     size = 4;
     cardSize = 100;
     padding = 10;
+    cardRadius = 8;
     constructor() {
         super();
         this.attachShadow({ mode: "open" });
@@ -37,6 +38,7 @@ export default class GameBoard extends HTMLElement {
         numberCard.setAttribute("position", JSON.stringify(realPosition));
         numberCard.setAttribute("number-value", 2);
         numberCard.setAttribute("card-size", this.cardSize);
+        numberCard.setAttribute("card-radius", this.cardRadius);
         numberCard.setAttribute("id", id);
 
         this.cards.set(id, numberCard);
@@ -126,13 +128,13 @@ export default class GameBoard extends HTMLElement {
                 border-radius: var(--radius-medium);
                 display: grid;
                 grid-template-columns: repeat(${this.size}, 1fr);
-                gap:10px;
+                gap:${this.padding}px;
                 padding:var(--padding-small);
             }
 
             .slot {
                 background-color: #ccc;
-                border-radius: 2px;
+                border-radius: ${this.cardRadius}px;
             }
 
             .need-to-remove{

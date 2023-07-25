@@ -2,13 +2,20 @@ export default class NumberCard extends HTMLElement {
     #attributes = {};
 
     cardSize = 90;
+    cardRadius = 7;
     constructor() {
         super();
         this.attachShadow({ mode: "open" });
     }
 
     static get observedAttributes() {
-        return ["number-value", "position", "bigger", "card-size"];
+        return [
+            "number-value",
+            "position",
+            "bigger",
+            "card-size",
+            "card-radius",
+        ];
     }
 
     attributeChangedCallback(name, _, newValue) {
@@ -24,6 +31,9 @@ export default class NumberCard extends HTMLElement {
                 break;
             case "card-size":
                 this.cardSize = Number.parseInt(newValue);
+                break;
+            case "card-radius":
+                this.cardRadius = Number.parseInt(newValue);
                 break;
             default:
                 break;
@@ -66,13 +76,14 @@ export default class NumberCard extends HTMLElement {
         <style>
             .card{
                 --card-size:${this.cardSize}px;
+                --card-radius:${this.cardRadius}px;
                 position: absolute;
                 width: var(--card-size);
                 height: var(--card-size);
                 z-index: 10;
                 display: grid;
                 place-items:center;
-                border-radius: 3px;
+                border-radius: var(--card-radius,1px);
                 font-size: var(--font-large);
                 animation: showup 0.2s ease-in-out;
                 transition: top 0.2s ease-in-out, left 0.2s ease-in-out;
