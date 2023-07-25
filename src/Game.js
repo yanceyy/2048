@@ -4,8 +4,11 @@ export default class Game extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: "open" });
-        this.boardSize = 4;
-        this.stateManager = new StateManager(this.boardSize);
+        this.Config = {
+            boardSize: 4,
+            CardSize: 70,
+        };
+        this.stateManager = new StateManager(this.Config.boardSize);
     }
 
     addInitialCards() {
@@ -18,6 +21,57 @@ export default class Game extends HTMLElement {
         this.scoreBoard.setAttribute("score", this.stateManager.score);
     }
 
+    // Touch event on mobile
+    handleTouch(e) {
+        let initialX = e.touches[0].clientX;
+        let initialY = e.touches[0].clientY;
+        document.addEventListener("touchend", moveEnd);
+
+        function moveEnd(e) {
+            document.removeEventListener("touchend", moveEnd);
+
+            let currentX = e.changedTouches[0].clientX;
+            let currentY = e.changedTouches[0].clientY;
+
+            let diffX = initialX - currentX;
+            let diffY = initialY - currentY;
+
+            if (Math.abs(diffX) < 10 && Math.abs(diffY) < 10) return;
+
+            let event;
+
+            if (Math.abs(diffX) > Math.abs(diffY)) {
+                // sliding horizontally
+                if (diffX > 0) {
+                    // swiped left
+                    event = new KeyboardEvent("keydown", {
+                        key: "ArrowLeft",
+                    });
+                } else {
+                    // swiped right
+                    event = new KeyboardEvent("keydown", {
+                        key: "ArrowRight",
+                    });
+                }
+            } else {
+                // sliding vertically
+                if (diffY > 0) {
+                    // swiped up
+                    event = new KeyboardEvent("keydown", {
+                        key: "ArrowUp",
+                    });
+                } else {
+                    // swiped down
+                    event = new KeyboardEvent("keydown", {
+                        key: "ArrowDown",
+                    });
+                }
+            }
+            window.dispatchEvent(event);
+        }
+    }
+
+    // Keyboard event on desktop
     handleKeyDown = (e) => {
         switch (e.key) {
             case "ArrowUp": {
@@ -74,7 +128,6 @@ export default class Game extends HTMLElement {
           margin: 0;
           padding: 0;
         }
-
         header{
           display: flex;
           margin-bottom: 20px;
@@ -97,7 +150,10 @@ export default class Game extends HTMLElement {
         .container{
           margin: 20px;
         }
-
+        .gameBoard-container{
+          display: flex;
+          justify-content: center;
+        }
         .menu{
           width: var(--card-size);
           height: calc(var(--card-size) / 3);
@@ -133,10 +189,12 @@ export default class Game extends HTMLElement {
       <p class="describe">
         Join the numbers and get to the <strong>2048</strong> tile!
       </p>
-      <game-board size="${this.boardSize}" aria-labelledby="game-title" role="grid"></game-board>
+      <div class="gameBoard-container">
+        <game-board size="${this.Config.boardSize}" card-size=${this.Config.CardSize}  aria-labelledby="game-title" role="grid"></game-board>
+      </div>
       <p class="describe">
-      Play the game with arrow keys (↑, ↓, ←, →)
-    </p>
+      Play the game with arrow keys (↑, ↓, ←, →) or swipe on mobile.
+      </p>
     </div>
     `;
 
@@ -155,6 +213,12 @@ export default class Game extends HTMLElement {
         );
 
         window.addEventListener("keydown", this.handleKeyDown);
+        this.gameBoard.addEventListener("touchstart", this.handleTouch);
+
+        // prevent dragging on mobile
+        window.addEventListener("touchmove", (e) => e.preventDefault(), {
+            passive: false,
+        });
 
         this.addInitialCards();
     }

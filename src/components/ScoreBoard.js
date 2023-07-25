@@ -24,7 +24,7 @@ export default class ScoreBoard extends HTMLElement {
                   height:var(--card-size);
                   border-radius: var(--radius-medium);
                   font-size: var(--font-large);
-                  background-color: #aaa;
+                  background-color: var(--background-color,#aaa);
                   color: var(--font-white);
                   overflow: hidden;
                   text-align: center;

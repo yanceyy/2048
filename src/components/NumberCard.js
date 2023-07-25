@@ -1,13 +1,14 @@
 export default class NumberCard extends HTMLElement {
     #attributes = {};
 
+    cardSize = 90;
     constructor() {
         super();
         this.attachShadow({ mode: "open" });
     }
 
     static get observedAttributes() {
-        return ["number-value", "position", "bigger"];
+        return ["number-value", "position", "bigger", "card-size"];
     }
 
     attributeChangedCallback(name, _, newValue) {
@@ -20,6 +21,9 @@ export default class NumberCard extends HTMLElement {
                 break;
             case "bigger":
                 this.#attributes.bigger = newValue;
+                break;
+            case "card-size":
+                this.cardSize = Number.parseInt(newValue);
                 break;
             default:
                 break;
@@ -61,6 +65,7 @@ export default class NumberCard extends HTMLElement {
         this.shadowRoot.innerHTML = `
         <style>
             .card{
+                --card-size:${this.cardSize}px;
                 position: absolute;
                 width: var(--card-size);
                 height: var(--card-size);

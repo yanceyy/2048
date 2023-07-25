@@ -1,4 +1,7 @@
 export default class GameBoard extends HTMLElement {
+    size = 4;
+    cardSize = 100;
+    padding = 10;
     constructor() {
         super();
         this.attachShadow({ mode: "open" });
@@ -6,12 +9,16 @@ export default class GameBoard extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ["size"];
+        return ["size", "card-size", "padding"];
     }
 
     attributeChangedCallback(name, _, newValue) {
         if (name === "size") {
             this.size = Number.parseInt(newValue);
+        } else if (name === "card-size") {
+            this.cardSize = Number.parseInt(newValue);
+        } else if (name === "padding") {
+            this.padding = Number.parseInt(newValue);
         }
     }
 
@@ -23,12 +30,13 @@ export default class GameBoard extends HTMLElement {
     insertCard(id, position) {
         const numberCard = document.createElement("number-card");
         const realPosition = {
-            x: 10 + 100 * position.x,
-            y: 10 + 100 * position.y,
+            x: this.padding + (this.cardSize + this.padding) * position.x,
+            y: this.padding + (this.cardSize + this.padding) * position.y,
         };
 
         numberCard.setAttribute("position", JSON.stringify(realPosition));
         numberCard.setAttribute("number-value", 2);
+        numberCard.setAttribute("card-size", this.cardSize);
         numberCard.setAttribute("id", id);
 
         this.cards.set(id, numberCard);
@@ -49,8 +57,12 @@ export default class GameBoard extends HTMLElement {
                     card.setAttribute(
                         "position",
                         JSON.stringify({
-                            x: 10 + 100 * colIndex,
-                            y: 10 + 100 * rowIndex,
+                            x:
+                                this.padding +
+                                (this.cardSize + this.padding) * colIndex,
+                            y:
+                                this.padding +
+                                (this.cardSize + this.padding) * rowIndex,
                         })
                     );
                     card.setAttribute("number-value", values.get(id));
@@ -74,7 +86,8 @@ export default class GameBoard extends HTMLElement {
     }
 
     connectedCallback() {
-        const pixelSize = this.size * 90 + 10 * (this.size + 1);
+        const pixelSize =
+            this.size * this.cardSize + this.padding * (this.size + 1);
         this.shadowRoot.innerHTML = `
         <div class="view">
             <div class="board">
@@ -86,6 +99,7 @@ export default class GameBoard extends HTMLElement {
             *{
                 box-sizing: border-box;
             }
+
             .view{
                 --board-width: ${pixelSize}px;
                 --board-height: ${pixelSize}px;
@@ -106,7 +120,7 @@ export default class GameBoard extends HTMLElement {
                 position: absolute;
                 top: 0;
                 left: 0;
-                background-color: #aaa;
+                background-color: var(--background-color, #aaa);
                 width: var(--board-width);
                 height: var(--board-height);
                 border-radius: var(--radius-medium);
