@@ -23,7 +23,6 @@ export default class ScoreBoard extends HTMLElement {
                   width: var(--card-size);
                   height:var(--card-size);
                   border-radius: var(--radius-medium);
-                  font-size: var(--font-large);
                   background-color: var(--background-color,#aaa);
                   color: var(--font-white);
                   overflow: hidden;
@@ -33,6 +32,11 @@ export default class ScoreBoard extends HTMLElement {
               .title{
                 font-size: var(--font-small);;
                 margin-top: var(--margin-small);
+              }
+
+              .score{
+                font-size: var(--font-medium);
+                line-height: calc(var(--card-size) - 4 * var(--margin-small));
               }
 
           </style>

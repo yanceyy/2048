@@ -84,7 +84,7 @@ export default class NumberCard extends HTMLElement {
                 display: grid;
                 place-items:center;
                 border-radius: var(--card-radius,1px);
-                font-size: var(--font-large);
+                font-size: var(--font-medium);
                 animation: showup 0.2s ease-in-out;
                 transition: top 0.2s ease-in-out, left 0.2s ease-in-out;
                 font-family: sans-serif;
